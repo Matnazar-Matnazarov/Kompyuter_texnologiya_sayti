@@ -19,7 +19,7 @@ class Chiqarish(View):
                                     "mahsulot_nomi":  hammasi[i].nomi
                                         ,"mahsulot_izohi": hammasi[i].izohi,
                                         "rasm":hammasi[i].rasmi,
-                                        "mahsulot_narxi":hammasi[i].narxi*j.soni,
+                                        "mahsulot_narxi":hammasi[i].narxi,
                                         "ulanma_id":j.mahsulot_id.id,
                                         "soni":j.soni
                                         })
@@ -52,13 +52,20 @@ class Chiqarish(View):
                                 "ulanma_id":False,
                                 "soni": False
                                 })
+        tanlanganlar=backet_s.objects.filter(user_id=request.user.id).order_by('id')
+        summa=sum(i.mahsulot_id.narxi for i in tanlanganlar)
         return render(request,'home.html',{'mahsulotlar':mas,
-                                            'turlar':turlari})
+                                            'turlar':turlari,
+                                            'tanlangan':tanlanganlar,
+                                            'qidiruv':"ALL",
+                                            'summa':summa})
 class HomeDetail(View):
     def get(self,request,url):
         hammasi=Tovarslar_s.objects.filter(turi__mahsulot_turi=url)
         product=backet_s.objects.filter(user_id=request.user.id)
         turlari=Tur_lar_s.objects.all()
+        # turlari2=[i.mahsulot_turi for i in turlari if i.mahsulot_turi!=url]
+        # print(turlari2)
         mas=[]
         for i in range(len(hammasi)):
                 try:
@@ -70,7 +77,7 @@ class HomeDetail(View):
                                     "mahsulot_nomi":  hammasi[i].nomi
                                         ,"mahsulot_izohi": hammasi[i].izohi,
                                         "rasm":hammasi[i].rasmi,
-                                        "mahsulot_narxi":hammasi[i].narxi*j.soni,
+                                        "mahsulot_narxi":hammasi[i].narxi,
                                         "ulanma_id":j.mahsulot_id.id,
                                         "soni":j.soni
                                         })
@@ -103,26 +110,31 @@ class HomeDetail(View):
                                 "ulanma_id":False,
                                 "soni": False
                                 })
+        tanlanganlar=backet_s.objects.filter(user_id=request.user.id).order_by('id')
+        summa=sum(i.mahsulot_id.narxi for i in tanlanganlar)
         return render(request,'home.html',{'mahsulotlar':mas,
-                                            'turlar':turlari})
+                                            'turlar':turlari,
+                                            'tanlangan':tanlanganlar,
+                                            'qidiruv':url,
+                                            'summa':summa})
 class update_quantity(LoginRequiredMixin,View):
         def get(self,request, product_id, action):
             if request.user.is_authenticated:
                 mahsulot=Tovarslar_s.objects.get(id=product_id)
                 tovar=backet_s.objects.filter(mahsulot_id=product_id,user_id=request.user.id)
                 if tovar:
+                    r=False
                     if action == 'increase':
                         tovar[0].soni += 1
+                        tovar[0].save()
+                        r=True
                     elif action == 'decrease':
-                        if tovar[0].soni > 0:
-                            tovar[0].soni -= 1
-                    tovar[0].save()
-                    mah_narxi=tovar[0].mahsulot_id.narxi*tovar[0].soni
-                    mal=backet_s.objects.filter(user_id=request.user.id,soni__gt=0)
-                    jami_summa=sum(i.soni*i.mahsulot_id.narxi for i in mal)
-                    return JsonResponse({'new_quantity': tovar[0].soni,
-                                        'mah_narxi' : mah_narxi,
-                                        'summa':jami_summa})
+                        backet_s.objects.filter(mahsulot_id=product_id,user_id=request.user.id).delete()
+                    if r:
+                        mal=backet_s.objects.filter(user_id=request.user.id,soni__gt=0)
+                        return JsonResponse({'new_quantity': tovar[0].soni})
+                    else:
+                         return JsonResponse({'new_quantity': False})
                 else:
                     backet_s.objects.create( 
                         mahsulot_id = mahsulot,

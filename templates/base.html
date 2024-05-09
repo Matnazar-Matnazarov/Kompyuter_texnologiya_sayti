@@ -90,7 +90,7 @@
   </style>
   </head>
 <body>
-    <header>
+    <header class="container mt-5">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,11 +104,11 @@
                   </li>
                   {% if request.user.is_authenticated %}
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Profil
+                      <a class="nav-link dropdown-toggle" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Tizimdan chiqish
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                        <li><a class="dropdown-item" href="{% url 'profile' %}">Profil</a></li>
+                        <!-- <li><a class="dropdown-item" href="{% url 'profile' %}">Profil</a></li> -->
                         <li><a class="dropdown-item" href="{% url 'logout'%}">Logout</a></li>
                       </ul>
                     </li>
@@ -116,9 +116,7 @@
                     <li class="nav-item">
                       <a class="nav-link active"  aria-current="page" href="{% url 'login' %}">Login</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link active"  aria-current="page" href="{% url 'register' %}">Register</a>
-                    </li>
+                    
                   {% endif %}
                 </ul>
               </div>

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css'%}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <style>
     .dropdown-menu {
   display: none;
@@ -65,12 +66,7 @@
 .prd_amount button:hover {
   background-color: rgb(196, 189, 189);
 }
-#btn_decrease {
-  border-radius: 0 8px 8px 0;
-}
-#btn_increase {
-  border-radius: 8px 0 0 8px;
-}
+
 .prd_amount p {
   display: inline;
   padding: 0 10px;
@@ -90,45 +86,91 @@
       .but_back1 {
        margin-left: 10rem;
       }
+.markaz{
+  width: 1500px;
+  display: flex;
+  gap:30px;
+
+}
+.noms{
+  width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(1,1fr);
+}
+.tanlanganlar{
+  margin-left: 0;
+  width: 2000px;
+
+}
+.cards{
+  width: 800px;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  row-gap: 30px;
+}
+.maxsulot-rasmi {
+  width: 100%;
+  padding: 5px;
+  height: 70px;
+}
+
+.maxsulot {
+  width: 80px;
+  float: left;
+  border: 1px solid black;
+  height: 165px;
+}
+
+.maxsulot-tarifi p{
+  padding: 0px 2px;
+  height: 50px;
+}
+
+.maxsulot-tarifi button{
+  display: inline-block;
+  width: 100%;
+}
+
+.maxsulot img{
+  width: 100%;
+}
+.card{
+text-align: center;
+}
 </style>
 </head>
 <body>
     <div class="container mt-5">
         <div class="row">
             <div class="menyu">
-                <select id="service-select" class="form-select form-select-lg mb-5 container-5" onchange="redirectToUrl()">
-                    <option selected>Xizmatlarni tanlang</option>
-                    <option value="home">Home</option>
-                    {% for i in turlar %}
-                            <option value="{{i.mahsulot_turi}}">{{i.mahsulot_turi}}</option>
-                    {% endfor %}
+                <select id="service-select" class="form-select form-select-lg mb-5 container-5" onchange="redirectToUrl()"  style="width: 300px;">
+                    <option selected>{{qidiruv}}</option>
+                    <option value="home">ALL</option>
+                      {% for i in turlar %}
+                              <option value="{{i.mahsulot_turi}}">{{i.mahsulot_turi}}</option>
+                      {% endfor %}
                   </select>
             </div>
-            <div class="noms">
+            <div class="markaz">
+            <div class="noms" >
                 {% for i in mahsulotlar  %}
-                <div class="card mb-3" style="max-width: 550px;">
+                <div class="card mb-3" style="max-width: 500px;">
                     <div class="row g-0">
                       <div class="col-md-4">
                         <img src="{{i.rasm.url}}" class="img-fluid rounded-start" alt="...">
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-5">
                         <div class="card-body">
                             <h5 class="card-title">{{i.mahsulot_nomi}}</h5>
-                            <p class="card-text">{{i.mahsulot_izohi}}</p>
-                            <p class="card-text">Last updated 3 mins ago</p>
+                            <!-- <p class="card-text">{{i.mahsulot_izohi}}</p> -->
+                            <!-- <p class="card-text">Last updated 3 mins ago</p> -->
                             {% if request.user.is_authenticated %}
-                                {% if i.ulanma_id and i.soni %}
                                 <p class="card-text" id="narx{{i.id}}">{{ i.mahsulot_narxi }} UZS</p>
                                 <div class="prd_amount">
                                         <button class="btn_increase" data-product-id="{{ i.id }}">+</button>
-                                        <p id="quantity_display{{i.id}}">{{ i.soni }}</p>
-                                        <button class="btn_decrease" data-product-id="{{ i.id }}">-</button>
-                                    </div>
-                                {% else %}
-                                <div class="but_back1">
-                                    <button id="but" class="btn_increase" data-product-id="{{ i.id }}">{{ i.mahsulot_narxi }} UZS</button>
+                                        <!-- <p id="quantity_display{{i.id}}">{{ i.soni }}</p> -->
+                                        <!-- <button class="btn_decrease" data-product-id="{{ i.id }}">-</button> -->
                                 </div>
-                                {% endif %}
                             {% else %}
                                 <p class="card-text">{{ i.mahsulot_narxi }} UZS</p>
                             {% endif %}
@@ -139,6 +181,24 @@
                   </div>
                 {% endfor  %}
             </div>
+            <div class="tanlanganlar">
+              {%  if request.user.is_authenticated and summa  %}
+              <div class="cards">
+                  {% for i in tanlangan  %}
+                        <div class="card" style="width: 150px;">
+                          <img src="{{i.mahsulot_id.rasmi.url}}" class="card-img-top" alt="..." style="width: 148px;object-fit: cover; height: 110px;">
+                          <div class="card-body">
+                            <h6 class="card-title" style="height: 30px;">{{ i.mahsulot_id.turi.mahsulot_turi }}</h5>
+                            <p class="card-text">{{i.mahsulot_id.narxi}} UZS</p>
+                            <a style="margin-left: 3px; width: 100px; background-color: red; border: none;" href="#" class="btn btn-primary btn_decrease" data-product-id="{{ i.mahsulot_id.id }}"><i style="color: white;" class="bi bi-trash3-fill"></i></a>
+                          </div>
+                        </div>
+                  {% endfor %}
+              </div>
+                <h3 style="margin-top:10px; float: right;">Jami summa :{{summa}} UZS</h3>
+                {% endif %}
+            </div>
+          </div>
         </div>
     </div>
     <script>
@@ -168,13 +228,7 @@
             type: 'GET',
             url: '/update_quantity/' + productId + '/' + action + '/',
             success: function(response) {
-                let sr="#quantity_display"+String(productId);
-                let narx="#narx"+String(productId);
-                $(narx).text(response.mah_narxi);
-                $(sr).text(response.new_quantity);
-                if (response.new_quantity === 0 || response.new_quantity == 1) {
                     window.location.reload();
-                }
             },
             error: function(xhr, status, error) {
                 console.error(error);
