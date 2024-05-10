@@ -1,0 +1,1 @@
+Kompyuter qismlari saytu
