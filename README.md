@@ -1,1 +1,1 @@
-Kompyuter qismlari saytu
+Kompyuter qismlari sayti
