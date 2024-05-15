@@ -1,0 +1,127 @@
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 10rem;
+    z-index: 1000;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+  }
+  
+  .dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+  }
+  
+  .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  .mt-7 {
+     margin-top: 100px;
+     padding: 7rem;
+    }
+  .mt-5 {
+     margin-top: 20px;
+  }
+  .mb-5 {
+     margin-bottom: 20px;
+  }
+  .rasm{
+    max-height: 120px;
+    max-width: 200px;
+    background-color: brown;
+  }
+  .prd_amount {
+   
+  }
+  .prd_amount button {
+    border: 1px solid rgb(13, 255, 0);
+    display: inline;
+    /* padding: 3px 0; */
+    border-radius: 8px;
+    margin-left: 10rem;
+    padding: 1px 9px;
+    border: 1px rgb(13, 255, 0) solid;
+  }
+  .prd_amount button:hover {
+    background-color: rgb(37, 219, 21);
+  }
+  
+  .prd_amount p {
+    display: inline;
+    padding: 0 10px;
+  }
+  #but{
+     border-radius: 8px;
+           text-align: center;
+           cursor: pointer; /* Ko'rsatkichni ko'rsatish */
+           border: 3px rgb(13, 255, 0) solid;
+  }
+  #but:hover{
+           background-color: rgb(196, 189, 189);
+         }
+         .but_back{
+         margin-top: 49px;
+        }
+        .but_back1 {
+         margin-left: 10rem;
+        }
+  .markaz{
+    width: 1500px;
+    display: flex;
+    gap:30px;
+  
+  }
+  .noms{
+    width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+  }
+  .tanlanganlar{
+    margin-left: 0;
+    width: 2000px;
+  
+  }
+  .cards{
+    width: 800px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    row-gap: 30px;
+  }
+  .maxsulot-rasmi {
+    width: 100%;
+    padding: 5px;
+    height: 70px;
+  }
+  
+  .maxsulot {
+    width: 80px;
+    float: left;
+    border: 1px solid black;
+    height: 165px;
+  }
+  
+  .maxsulot-tarifi p{
+    padding: 0px 2px;
+    height: 50px;
+  }
+  
+  .maxsulot-tarifi button{
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .maxsulot img{
+    width: 100%;
+  }
+  .card{
+  text-align: center;
+}

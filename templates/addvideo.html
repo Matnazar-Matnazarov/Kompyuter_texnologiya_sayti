@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{%load static%}
+<head>
+    {% block style %}
+    <link rel="stylesheet" href="{% static 'css/addvideo.css'%}">
+    {% endblock %}
+</head>
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <h1>Add New Video</h1>
+
+        <div class="col-4"></div>
+        <div class="col-4">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save</button>
+              </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+   <script>
+    document.getElementById("id_you_tobe_linki").placeholder = "YouTobe link";
+    document.getElementById("id_nomi").placeholder = "Video  nomi ";
+   </script>
+{% endblock %}

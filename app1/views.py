@@ -2,7 +2,9 @@ from django.shortcuts import redirect, render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from .models import Tovarslar_s,Tur_lar_s, backet_s
+from .models import Tovarslar_s,Tur_lar_s, backet_s,Video_turi,Page2
+from .forms import TovarslarForm, VideoForm
+
 class Chiqarish(View):
     def get(self,request):
         hammasi=Tovarslar_s.objects.all()
@@ -59,6 +61,27 @@ class Chiqarish(View):
                                             'tanlangan':tanlanganlar,
                                             'qidiruv':"ALL",
                                             'summa':summa})
+class Video(View):
+    def get(self,request):
+        turlari =Video_turi.objects.all()
+        hammasi=Page2.objects.all()
+        page=True
+        return render(request,'video_home.html',{
+                                            'turlar':turlari,
+                                            'qidiruv': "ALL",
+                                           'page':page,
+                                            'hammasi':hammasi})
+class VideoDetail(View):
+    def get(self,request,a):
+        page=False
+        url=a
+        turlari=Video_turi.objects.all()
+        hammasi=Page2.objects.filter(turi__turi=a)
+        return render(request,'video_home.html',{
+                                            'turlar':turlari,
+                                            'qidiruv': a,
+                                           'page':page,
+                                            'hammasi':hammasi})
 class HomeDetail(View):
     def get(self,request,url):
         hammasi=Tovarslar_s.objects.filter(turi__mahsulot_turi=url)
@@ -149,18 +172,43 @@ class update_quantity(LoginRequiredMixin,View):
                                         'summa':jami_summa})
             else:
                 return JsonResponse({'error': 'User is not authenticated'}, status=401)
-class Profile(LoginRequiredMixin,View):
-     def get(self,request):
-          malumot=backet_s.objects.filter(user_id=request.user.id,soni__gt=0)
-          jami_summa=sum(i.soni*i.mahsulot_id.narxi for i in malumot)
-          mal=[]
-          for i in malumot:
-               mal.append({
-                    'id':i.id,
-                    'mahsulot_id' :i.mahsulot_id,
-                    'soni':i.soni,
-                    'user_id':i.user_id,
-                    'mahsulot_narxi':i.soni*i.mahsulot_id.narxi
-               })
-          return render(request,'profile.html',{'mahsulotlar':mal,
-                                            'summa':jami_summa})
+            
+class addvideo(LoginRequiredMixin,View):
+    def get(self, request):
+        if request.user.is_superuser:
+            form = VideoForm()
+            return render(request, 'addvideo.html', {'form': form})
+        else:
+            return redirect('video')
+    def post(self, request):
+        form = VideoForm(request.POST)
+        if form.is_valid() and request.user.is_superuser:
+            link = form.cleaned_data['you_tobe_linki']
+            nomi = form.cleaned_data['nomi']
+            turi = form.cleaned_data['turi']
+            s = ""
+            for i in link[::-1]:
+                if i != '/':
+                    s += i
+                else:
+                    break
+            link = s[::-1]
+            t = Video_turi.objects.get(turi=turi)
+            video = Page2.objects.create(you_tobe_linki=link, nomi=nomi, turi=t)
+            return redirect('video')
+        else:
+            return redirect('video')
+class AddTovar(LoginRequiredMixin,View):
+    def get(self,request):
+        if request.user.is_superuser:
+            form = TovarslarForm()
+            return render(request, 'addtovar.html', {'form': form})
+        else:
+            return redirect('home')
+    def post(self,request):
+        if request.user.is_superuser:
+            form = TovarslarForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return redirect('home')
+        return redirect('home')

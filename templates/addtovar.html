@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{%load static%}
+<head>
+    {% block style %}
+    <link rel="stylesheet" href="{% static 'css/addtovar.css'%}">
+{% endblock %}
+</head>
+{% block content %}
+<body>
+    <div class="container mt-4">
+        <h1>Add New Tovarslar</h1>
+        <div class="row">
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Add Tovarslar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>
+

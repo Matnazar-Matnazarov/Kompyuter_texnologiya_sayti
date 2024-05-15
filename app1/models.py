@@ -23,3 +23,13 @@ class backet_s(models.Model):
     soni=models.IntegerField(default=1)
     def __str__(self) -> str:
         return self.mahsulot_id.nomi
+class Video_turi(models.Model):
+    turi=models.CharField(max_length=200)
+    def __str__(self):
+        return self.turi
+class Page2(models.Model):
+    you_tobe_linki=models.CharField(max_length=500)
+    nomi=models.CharField(max_length=200)
+    turi=models.ForeignKey(Video_turi,on_delete=models.CASCADE)
+    def __str__(self):
+        return self.nomi
