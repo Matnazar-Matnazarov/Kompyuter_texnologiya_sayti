@@ -3,7 +3,8 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from .models import Tovarslar_s,Tur_lar_s, backet_s,Video_turi,Page2
-from .forms import TovarslarForm, VideoForm
+from .forms import TovarslarForm, VideoForm, Kompyuter_solishtirish, Sanoq_form
+
 
 class Chiqarish(View):
     def get(self,request):
@@ -212,3 +213,88 @@ class AddTovar(LoginRequiredMixin,View):
                 form.save()
                 return redirect('home')
         return redirect('home')
+
+
+class Kompyuter_vs(View):
+    def get(self,request):
+        form=Kompyuter_solishtirish()
+        return render(request, 'komp_solishtirish.html', {'form': form})
+    def post(self,request):
+        form=Kompyuter_solishtirish(request.POST)
+        try:
+            if form.is_valid():
+                komp_model_1 =  form.cleaned_data['komp_model_1'].nomi
+                komp_protsessor_1 =  form.cleaned_data['komp_protsessor_1'].p_turi
+                komp_ram_1 = form.cleaned_data['komp_ram_1'].ram_x
+                komp_operativka_1 = form.cleaned_data['komp_operativka_1'].o_turi
+                komp_yadro_1 = form.cleaned_data['komp_yadro_1'].yadro_turi
+
+                komp_model_2 = form.cleaned_data['komp_model_2'].nomi
+                komp_protsessor_2 = form.cleaned_data['komp_protsessor_2'].p_turi
+                komp_ram_2 = form.cleaned_data['komp_ram_2'].ram_x
+                komp_operativka_2 = form.cleaned_data['komp_operativka_2'].o_turi
+                komp_yadro_2 = form.cleaned_data['komp_yadro_2'].yadro_turi
+                a,b=0,0
+                for i ,j in zip([komp_protsessor_1,komp_ram_1,komp_operativka_1,komp_yadro_1],[komp_protsessor_2,komp_ram_2,komp_operativka_2,komp_yadro_2]):
+                    if i>j:
+                        a+=25
+                    elif j>i:
+                        b+=25
+                    else:
+                        a+=12.5
+                        b+=12.5
+                return JsonResponse({
+                    'komp_model_1':komp_model_1,
+                    'komp_protsessor_1':komp_protsessor_1,
+                    'komp_ram_1':komp_ram_1,
+                    'komp_operativka_1':komp_operativka_1,
+                    'komp_yadro_1':komp_yadro_1,
+
+                    'komp_model_2': komp_model_2,
+                    'komp_protsessor_2': komp_protsessor_2,
+                    'komp_ram_2': komp_ram_2,
+                    'komp_operativka_2': komp_operativka_2,
+                    'komp_yadro_2': komp_yadro_2,
+
+                    'komp_model_1_b': komp_model_1,
+                    'komp_protsessor_1_b': komp_protsessor_1>=komp_protsessor_2,
+                    'komp_ram_1_b': komp_ram_1>=komp_ram_2,
+                    'komp_operativka_1_b': komp_operativka_1>=komp_operativka_2,
+                    'komp_yadro_1_b': komp_yadro_1>=komp_yadro_2,
+
+                    'komp_model_2_b': komp_model_2,
+                    'komp_protsessor_2_b': komp_protsessor_1<=komp_protsessor_2,
+                    'komp_ram_2_b': komp_ram_1<=komp_ram_2,
+                    'komp_operativka_2_b': komp_operativka_1<=komp_operativka_2,
+                    'komp_yadro_2_b': komp_yadro_1<=komp_yadro_2,
+
+                    'komp_1_ustunlik':a,
+                    'komp_2_ustunlik':b,
+                })
+            return JsonResponse({'error': "error"}, status=401)
+        except Exception as e:
+            return JsonResponse({'error': f'{e}'}, status=401)
+class  Sanoq_sistema(View):
+    def get(self,request):
+        form=Sanoq_form()
+        return render(request,'sanoq_sistema.html',{'form':form})
+    def post(self,request):
+        form=Sanoq_form(request.POST)
+        if form.is_valid():
+            n=form.cleaned_data['kiritilgan_son']
+            m=form.cleaned_data['son'].son
+            if n == 0:
+                return JsonResponse({'son':"0"})
+            s = ""
+            while n > 0:
+                d = n % m
+                if d < 10:
+                    s = str(d) + s
+                else:
+                    s = chr(ord('a') + d - 10)+s
+                n //= m
+            return JsonResponse({'son':s.upper(),
+                                 'sanoq_sistema':m})
+
+        else:
+            return JsonResponse({'error': 'error'}, status=401)

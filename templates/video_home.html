@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     {% block style %}
     <link rel="stylesheet" href="{% static 'css/videos.css'%}">
+    <style>
+      .card{
+        height: 300px;
+      }
+    </style>
     {% endblock %}
   </head>
 <body>
@@ -29,7 +34,7 @@
         {% for i in hammasi %}
         <div class="col-4 cards">
           <div class="card">
-              <iframe width="392" height="200" src="https://www.youtube.com/embed/{{i.you_tobe_linki}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <iframe width="416" height="200" src="https://www.youtube.com/embed/{{i.you_tobe_linki}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             <div class="card-body">
               <p class="card-text">{{i.nomi}}</p>
             </div>

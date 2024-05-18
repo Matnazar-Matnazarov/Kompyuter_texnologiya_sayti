@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solishtirish</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    {% block style %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <style>
+         body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 30px;
+        }
+        h2, h3 {
+            color: #343a40;
+            text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .form-container {
+            margin-bottom: 30px;
+        }
+        .form-container .mb-3 {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .form-container input, .form-container select {
+            border-radius: 10px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            appearance: none;
+            background: #fff;
+        }
+        .form-container select {
+            -moz-appearance: none; /* Firefox */
+            -webkit-appearance: none; /* Chrome and Safari */
+            appearance: none; /* Other browsers */
+            background-position: right 10px top 50%;
+            background-size: 10px 10px;
+        }
+        .form-container select:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+            border-color: #007bff;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 50px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .result-container {
+            padding: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        .result-container h3 {
+            margin-top: 20px;
+        }
+        .result-container p {
+            margin: 5px 0;
+        }
+        .comparison-summary {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e2e3e5;
+            border-radius: 5px;
+        }
+        .bi-check2-circle {
+            background-color: rgb(50, 205, 71);
+            color: white;
+            border-radius: 50px;
+            padding: 5px;
+        }
+        .bi-x-circle {
+            background-color: red;
+            color: white;
+            border-radius: 50px;
+            padding: 5px;
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row form-container">
+            <form id="compare-form" method="POST" class="row">
+                {% csrf_token %}
+                <div class="col-md-6">
+                    <h3>Computer 1</h3>
+                    <div class="mb-3">
+                        {{ form.komp_model_1.label_tag }} {{ form.komp_model_1 }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.komp_protsessor_1.label_tag }} {{ form.komp_protsessor_1 }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.komp_ram_1.label_tag }} {{ form.komp_ram_1 }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.komp_operativka_1.label_tag }} {{ form.komp_operativka_1 }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.komp_yadro_1.label_tag }} {{ form.komp_yadro_1 }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3>Computer 2</h3>
+                    <div class="mb-3">
+                        {{ form.komp_model_2.label_tag }} {{ form.komp_model_2 }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.komp_protsessor_2.label_tag }} {{ form.komp_protsessor_2 }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.komp_ram_2.label_tag }} {{ form.komp_ram_2 }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.komp_operativka_2.label_tag }} {{ form.komp_operativka_2 }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.komp_yadro_2.label_tag }} {{ form.komp_yadro_2 }}
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary">Solishtiring</button>
+                </div>
+            </form>
+        </div>
+        <div id="result" class="result-container">
+           
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#compare-form').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: window.location.href,
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('#result').html(`
+                            <h2>Taqqoslash natijalari</h2>
+                            <div class="row">
+                                <div class="col-5">
+                                    <h3>Computer 1</h3>
+                                    <p>Model: ${response.komp_model_1}</p>
+                                    <p>Processor: Core ${response.komp_protsessor_1} ${response.komp_protsessor_1_b ? '<i class="bi bi-check2-circle"></i>' : '<i class="bi bi-x-circle"></i>'}</p>
+                                    <p>RAM: ${response.komp_ram_1} GB ${response.komp_ram_1_b ? '<i class="bi bi-check2-circle"></i>' : '<i class="bi bi-x-circle"></i>'}</p>
+                                    <p>Operational Memory: DDR${response.komp_operativka_1} ${response.komp_operativka_1_b ? '<i class="bi bi-check2-circle"></i>' : '<i class="bi bi-x-circle"></i>'}</p>
+                                    <p>Core: ${response.komp_yadro_1} yadro ${response.komp_yadro_1_b ? '<i class="bi bi-check2-circle"></i>' : '<i class="bi bi-x-circle"></i>'}</p>
+                                </div>
+                                <div class="col-2">
+                                    <p>${response.komp_1_ustunlik}%  VS  ${response.komp_2_ustunlik}% </p>
+                                </div>
+                                <div class="col-5">
+                                    <h3>Computer 2</h3>
+                                    <p>Model: ${response.komp_model_2}</p>
+                                    <p>Processor: Core ${response.komp_protsessor_2} ${response.komp_protsessor_2_b ? '<i class="bi bi-check2-circle"></i>' : '<i class="bi bi-x-circle"></i>'}</p>
+                                    <p>RAM: ${response.komp_ram_2} GB ${response.komp_ram_2_b ? '<i class="bi bi-check2-circle"></i>' : '<i class="bi bi-x-circle"></i>'}</p>
+                                    <p>Operational Memory: DDR${response.komp_operativka_2} ${response.komp_operativka_2_b ? '<i class="bi bi-check2-circle"></i>' : '<i class="bi bi-x-circle"></i>'}</p>
+                                    <p>Core: ${response.komp_yadro_2} yadro ${response.komp_yadro_2_b ? '<i class="bi bi-check2-circle"></i>' : '<i class="bi bi-x-circle"></i>'}</p>
+                                </div>
+                            </div>
+                        `);
+                    },
+                    error: function(response) {
+                        alert('An error occurred. Please try again.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

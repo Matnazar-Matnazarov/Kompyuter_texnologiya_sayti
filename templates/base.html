@@ -23,8 +23,15 @@
                   <li class="nav-item">
                     <a class="nav-link active"  aria-current="page" href="{% url 'home'%}">Home</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link"  aria-current="page" href="{% url 'video'%}">Videos</a>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Labaratoriya 2
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                      <li><a class="dropdown-item" href="{% url 'video'%}">Videos</a></li>
+                      <li><a class="dropdown-item" href="{% url 'solishtirish'%}">Kompyuter solishtirish</a></li>
+                      <li><a class="dropdown-item" href="{% url 'sanoq_sistema'%}">Sanoq sistema</a></li>
+                    </ul>
                   </li>
                   {% if request.user.is_superuser %}
                   <li class="nav-item dropdown">
