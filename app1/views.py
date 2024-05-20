@@ -3,9 +3,12 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from .models import Tovarslar_s,Tur_lar_s, backet_s,Video_turi,Page2
-from .forms import TovarslarForm, VideoForm, Kompyuter_solishtirish, Sanoq_form
+from .forms import Sonsanoq, TovarslarForm, VideoForm, Kompyuter_solishtirish, Sanoq_form
 
 
+class Home_asosiy(View):
+    def get(self,request):
+        return render(request,'asosiy_home.html',{})
 class Chiqarish(View):
     def get(self,request):
         hammasi=Tovarslar_s.objects.all()
@@ -284,7 +287,8 @@ class  Sanoq_sistema(View):
             n=form.cleaned_data['kiritilgan_son']
             m=form.cleaned_data['son'].son
             if n == 0:
-                return JsonResponse({'son':"0"})
+                return JsonResponse({'son':"0",
+                                     'sanoq_sistema':m})
             s = ""
             while n > 0:
                 d = n % m
@@ -297,4 +301,29 @@ class  Sanoq_sistema(View):
                                  'sanoq_sistema':m})
 
         else:
-            return JsonResponse({'error': 'error'}, status=401)
+            return JsonResponse({'error': 'Iltimos sonni musbat sonni kiriting'}, status=401)
+class Sonsanoqsistema(View):
+    def get(self,request):
+        form=Sonsanoq()
+        return render(request,'son_sanoq_sistema.html',{'form':form})
+    def post(self,request):
+        form=Sonsanoq(request.POST)
+        if form.is_valid():
+            m=form.cleaned_data['kiritilgan_son'].upper()
+            n=form.cleaned_data['son'].son
+            if n == 0:
+                return JsonResponse({'son':"0",
+                                     'sanoq_sistema':n})
+            digits = '0123456789ABCDEF'
+            decimal_value = 0
+            for i, digit in enumerate(reversed(m)):
+                value = digits.index(digit)
+                decimal_value += value * (n ** i)
+            return JsonResponse({'son':decimal_value,
+                                 'sanoq_sistema':n})
+
+        else:
+            return JsonResponse({'error': 'Iltimos sonni musbat sonni kiriting'}, status=401)
+class Sanoq(View):
+    def get(self,request):
+        return render(request,'sanoq_tanlash.html',{})

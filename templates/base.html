@@ -4,13 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/hommee.css' %}">
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> 
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/base.css'%}">
+<style>
+   footer {
+          background-color: #333;
+          color: #fff;
+          text-align: center;
+          padding: 1rem 0;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+      }
+</style>
 {% endblock %}
+<style>
+  marquee{
+        font-size: 36px !important;
+        padding-top: 10px;
+      }
+</style>
   </head>
 <body>
+  <div class="container">
+<marquee behavior="alternate" direction="" scrollamount="10">Kompyuter Arxitekturasining Virtual laboratoriyasi</marquee>
+  </div>
     <header class="container mt-5">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
@@ -18,19 +40,18 @@
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand" href="{% url 'home'%}">Kompyuter texnologiyasi</a>
+                <a class="navbar-brand" href="{% url 'home'%}">Kompyuter Arxitekturasi</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active"  aria-current="page" href="{% url 'home'%}">Home</a>
-                  </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Labaratoriya 2
+                      Labaratoriya 
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                      <li><a class="dropdown-item" href="{% url 'video'%}">Videos</a></li>
-                      <li><a class="dropdown-item" href="{% url 'solishtirish'%}">Kompyuter solishtirish</a></li>
-                      <li><a class="dropdown-item" href="{% url 'sanoq_sistema'%}">Sanoq sistema</a></li>
+                      <li><a class="dropdown-item" href="{% url 'lobaratoriya1'%}">Labaratoriya 1</a></li>
+                      <li><a class="dropdown-item" href="{% url 'solishtirish'%}">Labaratoriya 2</a></li>
+                      <li><a class="dropdown-item" href="{% url 'sanoq_sistema'%}">Labaratoriya 3</a></li>
+                      <li><a class="dropdown-item" href="{% url 'video'%}">Labaratoriya 4</a></li>
+
                     </ul>
                   </li>
                   {% if request.user.is_superuser %}
@@ -66,6 +87,10 @@
     </header>
     {% block content %}
     {% endblock content %}
-
+    <main>
+      <footer>
+        <p>&copy; 2024 CompArch. All rights reserved.</p>
+    </footer>
+    </main>
     </body>
 </html>

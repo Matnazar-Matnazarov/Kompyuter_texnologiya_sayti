@@ -1,5 +1,6 @@
 from django import forms
 from .models import  Tovarslar_s,Video_turi,Ram_xotira,Protsessor,Operativka,Nomi_K,Yadro,Sanoq_sistema_model
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class TovarslarForm(forms.ModelForm):
@@ -26,5 +27,8 @@ class Kompyuter_solishtirish(forms.Form):
     komp_yadro_2 = forms.ModelChoiceField(queryset=Yadro.objects.all(), empty_label=None, label='Core 2')
 
 class Sanoq_form(forms.Form):
-    kiritilgan_son=forms.IntegerField(label='10 lik sanoq sistemadagi sonni kiriting ')
+    kiritilgan_son=forms.IntegerField(label='10 lik sanoq sistemadagi sonni kiriting ', validators=[MinValueValidator(0), MaxValueValidator(10000000000000000000)])
     son=forms.ModelChoiceField(queryset=Sanoq_sistema_model.objects.all(), empty_label=None, label="O'tkazmoqchi bo'lgan sanoq sistemani kiriting ")
+class Sonsanoq(forms.Form):
+    kiritilgan_son=forms.CharField(label="Qiymatni kiriting :", max_length=500)
+    son=forms.ModelChoiceField(queryset=Sanoq_sistema_model.objects.all(), empty_label=None, label="Kiritmoqchi bo'lgan Sanoq sistemani tanlang :")
