@@ -1,0 +1,89 @@
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 10rem;
+  z-index: 1000;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
+.mt-7 {
+   margin-top: 100px;
+   padding: 7rem;
+  }
+.mt-5 {
+   margin-top: 20px;
+}
+.mb-5 {
+   margin-bottom: 20px;
+}
+.rasm{
+  max-height: 120px;
+  max-width: 200px;
+  background-color: brown;
+}
+.prd_amount {
+  border: 1px solid rgb(214, 212, 212);
+  display: inline;
+  padding: 3px 0;
+  border-radius: 8px;
+  margin-left: 10rem;
+}
+.prd_amount button {
+  padding: 1px 9px;
+  border: 1px gainsboro solid;
+}
+.prd_amount button:hover {
+  background-color: rgb(196, 189, 189);
+}
+#btn_decrease {
+  border-radius: 0 8px 8px 0;
+}
+#btn_increase {
+  border-radius: 8px 0 0 8px;
+}
+.prd_amount p {
+  display: inline;
+  padding: 0 10px;
+}
+#but{
+   border-radius: 8px;
+         text-align: center;
+         cursor: pointer; /* Ko'rsatkichni ko'rsatish */
+         border: 3px #f4e9e9 solid;
+}
+#but:hover{
+         background-color: rgb(196, 189, 189);
+       }
+       .but_back{
+       margin-top: 49px;
+      }
+      .but_back1 a{
+       margin-left: 10rem;
+      }
+
+      footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    

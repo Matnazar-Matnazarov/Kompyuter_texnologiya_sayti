@@ -1,0 +1,92 @@
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 10rem;
+    z-index: 1000;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+  }
+  
+  .dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+  }
+  .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  .mt-7 {
+     margin-top: 100px;
+     padding: 7rem;
+    }
+  .mt-5 {
+     margin-top: 20px;
+  }
+  .mb-5 {
+     margin-bottom: 20px;
+  }
+/* Video qatorlari */
+.cards {
+    margin-bottom: 20px;
+}
+
+/* Video karta */
+.card {
+    height: 300px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+/* Video karta qanday harakatlanishi */
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Video iframe */
+.card iframe {
+    border-radius: 10px 10px 0 0;
+}
+
+/* Karta sarlavhasi */
+.card-body {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Sarlavha matni */
+.card-text {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* Select element */
+.form-select {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    background-color: #fff;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Select element hover */
+.form-select:hover {
+    border-color: #adb5bd;
+}
+
+/* Select element focus */
+.form-select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
