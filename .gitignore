@@ -1,0 +1,28 @@
+# Virtual muhitlar
+venv/
+env/
+.venv/
+
+# Django cache fayllari
+*.pyc
+__pycache__/
+
+# Mahalliy sozlamalar va IDE fayllari
+*.vscode/
+.idea/
+
+# Linux fayl tizimlari uchun sozlamalar
+.DS_Store
+
+# Log fayllar
+*.log
+
+# Statik fayllar
+staticfiles/
+# media/
+
+# Migration fayllar (Agar kuzatilishini istamasangiz)
+*/migrations/
+
+# Mahalliy ma'lumotlar bazalari
+db.sqlite3

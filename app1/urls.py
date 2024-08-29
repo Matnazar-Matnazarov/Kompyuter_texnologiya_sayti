@@ -11,8 +11,7 @@ from app1.views import (
     Kompyuter_vs,
     Sanoq_sistema,
     Sonsanoqsistema,
-    Sanoq,
-    Home_asosiy,
+    Sanoq,Home_asosiy,
 )
 
 urlpatterns = [
