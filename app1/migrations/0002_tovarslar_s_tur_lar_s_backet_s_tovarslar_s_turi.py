@@ -8,40 +8,78 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app1', '0001_initial'),
+        ("app1", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Tovarslar_s',
+            name="Tovarslar_s",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nomi', models.CharField(max_length=100)),
-                ('izohi', models.CharField(max_length=500)),
-                ('narxi', models.IntegerField()),
-                ('rasmi', models.ImageField(upload_to='')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nomi", models.CharField(max_length=100)),
+                ("izohi", models.CharField(max_length=500)),
+                ("narxi", models.IntegerField()),
+                ("rasmi", models.ImageField(upload_to="")),
             ],
         ),
         migrations.CreateModel(
-            name='Tur_lar_s',
+            name="Tur_lar_s",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('mahsulot_turi', models.CharField(max_length=200)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("mahsulot_turi", models.CharField(max_length=200)),
             ],
         ),
         migrations.CreateModel(
-            name='backet_s',
+            name="backet_s",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('soni', models.IntegerField(default=1)),
-                ('user_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('mahsulot_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app1.tovarslar_s')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("soni", models.IntegerField(default=1)),
+                (
+                    "user_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "mahsulot_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="app1.tovarslar_s",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='tovarslar_s',
-            name='turi',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app1.tur_lar_s'),
+            model_name="tovarslar_s",
+            name="turi",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="app1.tur_lar_s"
+            ),
         ),
     ]
