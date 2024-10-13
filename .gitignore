@@ -4,6 +4,8 @@ env/
 .venv/
 .venvkomp/
 venvkomp/
+venvkomp/
+
 # Django cache fayllari
 *.pyc
 __pycache__/
