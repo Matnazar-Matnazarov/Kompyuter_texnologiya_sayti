@@ -2,7 +2,7 @@
 venv/
 env/
 .venv/
-
+.venvkomp/
 # Django cache fayllari
 *.pyc
 __pycache__/
