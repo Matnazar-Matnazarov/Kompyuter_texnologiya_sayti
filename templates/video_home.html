@@ -1,55 +1,78 @@
 {% extends 'base.html' %}
 {% block content %}
-{%load static%}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videos</title>
-    <link rel="stylesheet" href="{% static 'css/style.css'%}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    {% block style %}
-    <link rel="stylesheet" href="{% static 'css/videos.css'%}">
-    {% endblock %}
-  </head>
-<body>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="menyu">
-                <select id="service-select" class="form-select form-select-lg mb-5 container-5" onchange="redirectToUrl()"  style="width: 300px;">
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 animate-fade-in-up">
+            
+            <!-- Video Category Selector -->
+            <div class="mb-8">
+                <select id="service-select" 
+                        class="w-full md:w-72 px-4 py-3 rounded-xl border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 transition-all duration-200"
+                        onchange="redirectToUrl()">
                     <option selected>{{qidiruv}}</option>
-                    <option value="video">ALL</option>
-                      {% for i in turlar %}
-                              <option value="{{i.turi}}">{{i.turi}}</option>
-                      {% endfor %}
-                  </select>
+                    <option value="video">Barchasi</option>
+                    {% for i in turlar %}
+                        <option value="{{i.turi}}">{{i.turi}}</option>
+                    {% endfor %}
+                </select>
             </div>
-        {% for i in hammasi %}
-        <div class="col-4 cards">
-          <div class="card">
-              <iframe width="416" height="200" src="https://www.youtube.com/embed/{{i.you_tobe_linki}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            <div class="card-body">
-              <p class="card-text">{{i.nomi}}</p>
+
+            <!-- Video Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for i in hammasi %}
+                <div class="group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
+                    <div class="aspect-w-16 aspect-h-9">
+                        <iframe 
+                            class="w-full h-full rounded-t-xl"
+                            src="https://www.youtube.com/embed/{{i.you_tobe_linki}}" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white line-clamp-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-200">
+                            {{i.nomi}}
+                        </h3>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-          </div>
+
         </div>
-        {% endfor %}
-      </div>
     </div>
-    <script>
-        function redirectToUrl() {
-            var select = document.getElementById("service-select");
-            var selectedOption = select.options[select.selectedIndex].value;
-            if(selectedOption=="video"){
-                window.location.href="{% url 'video' %}";
-            }
-            else{
-                window.location.href = "/lobaratoriya2/" + selectedOption;
-            }
+</div>
+
+<script>
+    function redirectToUrl() {
+        var select = document.getElementById("service-select");
+        var selectedOption = select.options[select.selectedIndex].value;
+        if(selectedOption=="video"){
+            window.location.href="{% url 'video' %}";
         }
-    </script>
-    {% endblock content %}
-</body>
-</html>
+        else{
+            window.location.href = "/lobaratoriya2/" + selectedOption;
+        }
+    }
+</script>
+
+<style>
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out;
+    }
+</style>
+
+{% endblock %}

@@ -1,95 +1,141 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solishtirish</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    {% block style %}
-    <link rel="stylesheet" href="{% static 'css/sanoq_sistema.css' %}">
-    <style>
-        .link-container {
-    display: flex;
-    gap: 20px;
-}
 
-.styled-link {
-    text-decoration: none;
-    color: #fff;
-    background-color: #007bff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-slate-900 dark:to-slate-800 py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-gray-100/50 dark:border-slate-700/50 animate-fade-in-up">
+            <h1 class="text-4xl font-extrabold text-center mb-8">
+                <span class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    Sanoq Sistemalari
+                </span>
+            </h1>
 
-.styled-link:hover {
-    background-color: #0056b3;
-    transform: translateY(-5px);
-}
-
-.styled-link:active {
-    background-color: #003f7f;
-}
-    </style>
-    {% endblock %}
-</head>
-<body>
-    <div class="container mt-5">
-        <div class="row form-container">
-            <div class="link-container">
-                <a href="{% url 'sanoq_sistema'%}" class="styled-link">10 --&gt; x</a>
-                <a href="{% url 'son_sanoq'%}" class="styled-link">x --&gt; 10</a>
-            </div>
-            <form id="compare-form" method="POST" class="row">
-                {% csrf_token %}
-                <div class="col-md-6">
-                    <h3>Sanoq sistema</h3>
-                    <div class="mb-3">
-                        {{ form.kiritilgan_son.label_tag }} {{ form.kiritilgan_son }}
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="{% url 'sanoq_sistema' %}" 
+                   class="group relative px-8 py-4 overflow-hidden rounded-xl bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div class="relative flex items-center gap-3">
+                        <i class="bi bi-arrow-right-circle text-2xl text-blue-600 dark:text-blue-400 group-hover:rotate-45 transition-transform duration-300"></i>
+                        <span class="font-semibold text-gray-800 dark:text-white">
+                            10 → x
+                        </span>
                     </div>
-                    <div class="mb-3">
-                        {{ form.son.label_tag }} {{ form.son }}
+                </a>
+
+                <a href="{% url 'son_sanoq' %}"
+                   class="group relative px-8 py-4 overflow-hidden rounded-xl bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-10 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    <div class="relative flex items-center gap-3">
+                        <i class="bi bi-arrow-left-circle text-2xl text-purple-600 dark:text-purple-400 group-hover:-rotate-45 transition-transform duration-300"></i>
+                        <span class="font-semibold text-gray-800 dark:text-white">
+                            x → 10
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <form id="compare-form" method="POST" class="space-y-6">
+                {% csrf_token %}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="form-group group">
+                        <label for="{{ form.kiritilgan_son.id_for_label }}" class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
+                            <i class="bi bi-123 text-2xl text-blue-500 group-hover:animate-pulse"></i>
+                            <span class="relative">
+                                {{ form.kiritilgan_son.label }}
+                                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-blue-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                            </span>
+                        </label>
+                        <input type="{{ form.kiritilgan_son.field.widget.input_type }}" 
+                               name="{{ form.kiritilgan_son.name }}"
+                               id="{{ form.kiritilgan_son.id_for_label }}"
+                               class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 dark:border-slate-600 bg-white/70 dark:bg-slate-800/70 text-gray-900 dark:text-white focus:ring-4 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-300 outline-none"
+                               {% if form.kiritilgan_son.field.required %}required{% endif %}>
+                    </div>
+
+                    <div class="form-group group">
+                        <label for="{{ form.son.id_for_label }}" class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
+                            <i class="bi bi-calculator text-2xl text-purple-500 group-hover:animate-pulse"></i>
+                            <span class="relative">
+                                {{ form.son.label }}
+                                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-purple-500 to-purple-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                            </span>
+                        </label>
+                        <input type="{{ form.son.field.widget.input_type }}"
+                               name="{{ form.son.name }}"
+                               id="{{ form.son.id_for_label }}"
+                               class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 dark:border-slate-600 bg-white/70 dark:bg-slate-800/70 text-gray-900 dark:text-white focus:ring-4 focus:ring-purple-500/20 dark:focus:ring-purple-400/20 focus:border-purple-500 dark:focus:border-purple-400 transition-all duration-300 outline-none"
+                               {% if form.son.field.required %}required{% endif %}>
                     </div>
                 </div>
-                <div class="col-md-12 text-center">
-                    <button type="submit" class="btn btn-primary">O'tkazish</button>
+
+                <div class="flex justify-center">
+                    <button type="submit" class="group relative">
+                        <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                        <div class="relative px-8 py-4 bg-white dark:bg-slate-800 rounded-xl leading-none flex items-center justify-center space-x-3">
+                            <i class="bi bi-arrow-right-circle text-xl group-hover:rotate-90 transition-transform duration-500"></i>
+                            <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-bold text-lg">
+                                O'tkazish
+                            </span>
+                        </div>
+                    </button>
                 </div>
             </form>
-        </div>
-        <div id="result" class="result-container">
-           
+
+            <div id="result" class="mt-8 opacity-0 transform translate-y-4 transition-all duration-500"></div>
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $('#compare-form').on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: window.location.href,
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $('#result').html(`
-                            <div class="row">
-                                <div class="col-5">
-                                    <h3>Natija</h3>
-                                    <p>${response.sanoq_sistema} lik sanoq sistemadagi ko'rinishi : ${response.son}</p>
-                                </div>
-                            </div>
-                        `);
-                    },
-                    error: function(response) {
-                        alert('An error occurred. Please try again. ');
-                    }
-                });
+</div>
+
+<style>
+    @keyframes tilt {
+        0%, 50%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(0.5deg); }
+        75% { transform: rotate(-0.5deg); }
+    }
+    .animate-tilt {
+        animation: tilt 10s infinite linear;
+    }
+    .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out;
+    }
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        $('#compare-form').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: window.location.href,
+                data: $(this).serialize(),
+                success: function(response) {
+                    const resultDiv = $('#result');
+                    resultDiv.html(`
+                        <div class="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-200/50 dark:border-slate-700/50">
+                            <h3 class="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Natija</h3>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                <span class="font-semibold">${response.sanoq_sistema}</span> lik sanoq sistemadagi ko'rinishi: 
+                                <span class="font-mono text-lg text-blue-600 dark:text-blue-400">${response.son}</span>
+                            </p>
+                        </div>
+                    `).removeClass('opacity-0 translate-y-4');
+                },
+                error: function(response) {
+                    alert('Xatolik yuz berdi. Iltimos qaytadan urinib ko\'ring.');
+                }
             });
         });
-    </script>
-</body>
-</html>
+    });
+</script>
 {% endblock %}

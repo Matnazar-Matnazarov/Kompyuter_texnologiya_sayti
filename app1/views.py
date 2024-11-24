@@ -12,6 +12,7 @@ from .forms import (
 )
 
 
+
 class Home_asosiy(View):
     def get(self, request):
         return render(request, "asosiy_home.html", {})
@@ -389,14 +390,17 @@ class Sonsanoqsistema(View):
         if form.is_valid():
             m = form.cleaned_data["kiritilgan_son"].upper()
             n = form.cleaned_data["son"].son
-            if n == 0:
-                return JsonResponse({"son": "0", "sanoq_sistema": n})
-            digits = "0123456789ABCDEF"
-            decimal_value = 0
-            for i, digit in enumerate(reversed(m)):
-                value = digits.index(digit)
-                decimal_value += value * (n**i)
-            return JsonResponse({"son": decimal_value, "sanoq_sistema": n})
+            try:
+                if n == 0:
+                    return JsonResponse({"son": "0", "sanoq_sistema": n})
+                digits = "0123456789ABCDEF"
+                decimal_value = 0
+                for i, digit in enumerate(reversed(m)):
+                    value = digits.index(digit)
+                    decimal_value += value * (n**i)
+                return JsonResponse({"son": decimal_value, "sanoq_sistema": n})
+            except:
+                return JsonResponse({"error": "Iltimos sonni kiriting"}, status=401)
 
         else:
             return JsonResponse(

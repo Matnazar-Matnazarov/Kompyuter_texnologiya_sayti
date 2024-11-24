@@ -1,28 +1,147 @@
 {% extends 'base.html' %}
-{%load static%}
-<head>
-    {% block style %}
-    <link rel="stylesheet" href="{% static 'css/addvideo.css'%}">
-    {% endblock %}
-</head>
-{% block content %}
-<div class="container mt-4">
-    <div class="row">
-        <h1>Add New Video</h1>
+{% load static %}
 
-        <div class="col-4"></div>
-        <div class="col-4">
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Save</button>
-              </form>
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-slate-900 dark:to-slate-800 py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-gray-100/50 dark:border-slate-700/50 animate-fade-in-up">
+            <h1 class="text-4xl font-extrabold text-center mb-8">
+                <span class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    Yangi Video Qo'shish
+                </span>
+            </h1>
+
+            <div class="max-w-lg mx-auto">
+                <form method="post" class="space-y-8">
+                    {% csrf_token %}
+                    <div class="form-group group">
+                        <label for="id_you_tobe_linki" class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
+                            <i class="bi bi-youtube text-2xl text-red-500 group-hover:animate-bounce"></i>
+                            <span class="relative">
+                                YouTube Havolasi
+                                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-red-500 to-red-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                            </span>
+                        </label>
+                        <div class="relative">
+                            <input type="text" name="you_tobe_linki" maxlength="500" required id="id_you_tobe_linki" 
+                                   class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 dark:border-slate-600 bg-white/70 dark:bg-slate-800/70 
+                                          text-gray-900 dark:text-white focus:ring-4 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 
+                                          focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-300 outline-none
+                                          placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
+                                   placeholder="YouTube havolasini kiriting...">
+                            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group group">
+                        <label for="id_nomi" class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
+                            <i class="bi bi-card-heading text-2xl text-blue-500 group-hover:animate-pulse"></i>
+                            <span class="relative">
+                                Video Nomi
+                                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-blue-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                            </span>
+                        </label>
+                        <div class="relative">
+                            <input type="text" name="nomi" maxlength="200" required id="id_nomi" 
+                                   class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 dark:border-slate-600 bg-white/70 dark:bg-slate-800/70 
+                                          text-gray-900 dark:text-white focus:ring-4 focus:ring-purple-500/20 dark:focus:ring-purple-400/20 
+                                          focus:border-purple-500 dark:focus:border-purple-400 transition-all duration-300 outline-none
+                                          placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm"
+                                   placeholder="Video nomini kiriting...">
+                            <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full group relative">
+                        <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                        <div class="relative px-6 py-4 bg-white dark:bg-slate-800 rounded-xl leading-none flex items-center justify-center space-x-3">
+                            <svg class="w-6 h-6 group-hover:rotate-180 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                            <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-bold text-lg">
+                                Saqlash
+                            </span>
+                        </div>
+                    </button>
+                </form>
+            </div>
         </div>
-        <div class="col-4"></div>
     </div>
 </div>
-   <script>
-    document.getElementById("id_you_tobe_linki").placeholder = "YouTobe link";
-    document.getElementById("id_nomi").placeholder = "Video  nomi ";
-   </script>
+
+<style>
+    @keyframes tilt {
+        0%, 50%, 100% {
+            transform: rotate(0deg);
+        }
+        25% {
+            transform: rotate(0.5deg);
+        }
+        75% {
+            transform: rotate(-0.5deg);
+        }
+    }
+
+    .animate-tilt {
+        animation: tilt 10s infinite linear;
+    }
+
+    .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .form-group {
+        @apply transform transition-all duration-500;
+    }
+
+    .form-group:hover {
+        @apply scale-[1.02];
+    }
+
+    .form-group input:focus {
+        @apply scale-[1.01] shadow-lg;
+    }
+</style>
+
+<script>
+    document.getElementById("id_you_tobe_linki").placeholder = "YouTube havolasini kiriting...";
+    document.getElementById("id_nomi").placeholder = "Video nomini kiriting...";
+
+    const inputs = document.querySelectorAll('.form-group input');
+    inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            input.closest('.form-group').classList.add('ring-2', 'ring-blue-500/20', 'scale-[1.02]');
+        });
+        input.addEventListener('blur', () => {
+            input.closest('.form-group').classList.remove('ring-2', 'ring-blue-500/20', 'scale-[1.02]');
+        });
+
+        // Add floating effect
+        input.addEventListener('mousemove', (e) => {
+            const bounds = input.getBoundingClientRect();
+            const mouseX = e.clientX - bounds.left;
+            const mouseY = e.clientY - bounds.top;
+            const centerX = bounds.width / 2;
+            const centerY = bounds.height / 2;
+            const angleX = (mouseY - centerY) / 30;
+            const angleY = (centerX - mouseX) / 30;
+            input.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        input.addEventListener('mouseleave', () => {
+            input.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+    });
+</script>
 {% endblock %}

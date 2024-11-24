@@ -420,17 +420,31 @@
                 {% endif %}
                 <!-- Theme Toggle -->
                 <div class="flex justify-center mt-6">
-                    <button onclick="toggleDarkMode()" 
-                        class="group relative w-full px-6 py-3 overflow-hidden rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                        <div class="absolute inset-0 w-3 bg-gradient-to-br from-purple-400 to-indigo-600 transition-all duration-[400ms] ease-out group-hover:w-full"></div>
-                        <div class="relative flex items-center justify-center space-x-4">
-                            <i class="fas fa-moon text-xl text-purple-500 dark:hidden transition-transform duration-300 group-hover:rotate-[360deg] group-hover:text-white"></i>
-                            <i class="hidden fas fa-sun text-xl text-yellow-400 dark:block transition-transform duration-300 group-hover:rotate-[360deg] group-hover:text-white"></i>
-                            <span class="font-medium text-slate-700 dark:text-slate-200 group-hover:text-white transition-colors duration-300">
-                                Mavzuni o'zgartirish
-                            </span>
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500"></div>
+                    <button id="mobile-theme-toggle" 
+                            class="relative inline-flex items-center justify-center w-12 h-12 rounded-full 
+                                   bg-gray-100 dark:bg-slate-800 
+                                   text-gray-500 dark:text-gray-400 
+                                   hover:bg-gray-200 dark:hover:bg-slate-700 
+                                   focus:outline-none focus:ring-2 focus:ring-offset-2 
+                                   focus:ring-blue-500 dark:focus:ring-blue-400 
+                                   transition-all duration-300 shadow-sm"
+                            aria-label="Toggle theme">
+                        <!-- Dark mode icon -->
+                        <svg id="mobile-theme-toggle-dark-icon" 
+                             class="absolute w-6 h-6 transition-opacity duration-300"
+                             fill="currentColor" 
+                             viewBox="0 0 20 20"
+                             aria-hidden="true">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                        <!-- Light mode icon -->
+                        <svg id="mobile-theme-toggle-light-icon" 
+                             class="absolute w-6 h-6 transition-opacity duration-300"
+                             fill="currentColor" 
+                             viewBox="0 0 20 20"
+                             aria-hidden="true">
+                            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>
+                        </svg>
                     </button>
                 </div>
 
@@ -531,19 +545,6 @@
                 toggleMobileMenu();
             }
         });
-        // Toggle dark mode function
-        function toggleDarkMode() {
-            const html = document.documentElement;
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                html.classList.add('light');
-                localStorage.setItem('theme', 'light');
-            } else {
-                html.classList.remove('light');
-                html.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        }
     </script>
 </body>
 

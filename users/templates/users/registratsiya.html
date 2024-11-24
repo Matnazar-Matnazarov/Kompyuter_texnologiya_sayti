@@ -1,24 +1,147 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
 {% block content %}
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-</head>
-<body>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-4">
-                    <form action="" method="post">{% csrf_token %}
-                    {{ form | crispy }}
-                    <button class="btn btn-primary" type="submit"> Ro'yxatdan o'tish </button>
-                    <a href="{% url 'login' %}">ro'yxatdan o'tganmisiz</a>
-            </form>
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+    <div class="max-w-md w-full space-y-8">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 animate-fade-in">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white">
+                    Ro'yxatdan o'tish
+                </h2>
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                    Yoki 
+                    <a href="{% url 'login' %}" class="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 transition-colors duration-200">
+                        tizimga kiring
+                    </a>
+                </p>
             </div>
+
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                <div class="space-y-2">
+                    <label for="id_username" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Foydalanuvchi nomi<span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" 
+                           name="username" 
+                           id="id_username"
+                           maxlength="150"
+                           required
+                           class="appearance-none block w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                           placeholder="Foydalanuvchi nomingizni kiriting">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">150 ta belgidan oshmasligi kerak. Faqat harflar, raqamlar va @/./+/-/_ belgilari.</p>
+                </div>
+
+                <div class="space-y-2">
+                    <label for="id_first_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Ism
+                    </label>
+                    <input type="text"
+                           name="first_name"
+                           id="id_first_name"
+                           maxlength="150"
+                           class="appearance-none block w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                           placeholder="Ismingizni kiriting">
+                </div>
+
+                <div class="space-y-2">
+                    <label for="id_last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Familiya
+                    </label>
+                    <input type="text"
+                           name="last_name"
+                           id="id_last_name"
+                           maxlength="150"
+                           class="appearance-none block w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                           placeholder="Familiyangizni kiriting">
+                </div>
+
+                <div class="space-y-2">
+                    <label for="id_email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Email manzil
+                    </label>
+                    <input type="email"
+                           name="email"
+                           id="id_email"
+                           maxlength="254"
+                           class="appearance-none block w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                           placeholder="Email manzilingizni kiriting">
+                </div>
+
+                <div class="space-y-2">
+                    <label for="id_password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Parol<span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <input type="password"
+                               name="password"
+                               id="id_password"
+                               maxlength="128"
+                               required
+                               class="appearance-none block w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                               placeholder="Parolingizni kiriting">
+                        <button type="button" 
+                                onclick="togglePassword()"
+                                class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                            <svg id="eye-icon" class="h-6 w-6 text-indigo-500 hover:text-indigo-600 transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            <svg id="eye-off-icon" class="hidden h-6 w-6 text-indigo-500 hover:text-indigo-600 transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" 
+                            class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200">
+                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                            <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400 transition-colors duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                        Ro'yxatdan o'tish
+                    </button>
+                </div>
+            </form>
         </div>
-
     </div>
+</div>
 
+<style>
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
+    .animate-fade-in {
+        animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+</style>
 
-{% endblock %}    
-</body>
+<script>
+    function togglePassword() {
+        const passwordInput = document.getElementById('id_password');
+        const eyeIcon = document.getElementById('eye-icon');
+        const eyeOffIcon = document.getElementById('eye-off-icon');
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.classList.add('hidden');
+            eyeOffIcon.classList.remove('hidden');
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.classList.remove('hidden');
+            eyeOffIcon.classList.add('hidden');
+        }
+    }
+</script>
+{% endblock %}

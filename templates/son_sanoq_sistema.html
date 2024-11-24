@@ -1,95 +1,109 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solishtirish</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    {% block style %}
-    <link rel="stylesheet" href="{% static 'css/sanoq_sistema.css' %}">
-    <style>
-        .link-container {
-    display: flex;
-    gap: 20px;
-}
 
-.styled-link {
-    text-decoration: none;
-    color: #fff;
-    background-color: #007bff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 animate-fade-in-up">
+            <div class="flex justify-center mb-8">
+                <div class="flex gap-6">
+                    <a href="{% url 'sanoq_sistema' %}" 
+                        class="group relative px-8 py-4 overflow-hidden rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                        <span class="relative flex items-center gap-3">
+                            <i class="bi bi-arrow-right-circle text-2xl group-hover:rotate-45 transition-transform duration-300"></i>
+                            <span class="font-semibold">10 → x</span>
+                        </span>
+                    </a>
 
-.styled-link:hover {
-    background-color: #0056b3;
-    transform: translateY(-5px);
-}
-
-.styled-link:active {
-    background-color: #003f7f;
-}
-    </style>
-    {% endblock %}
-</head>
-<body>
-    <div class="container mt-5">
-        <div class="row form-container">
-            <div class="link-container">
-                <a href="{% url 'sanoq_sistema'%}" class="styled-link">10 --&gt; x</a>
-                <a href="{% url 'son_sanoq'%}" class="styled-link">x --&gt; 10</a>
-            </div>
-            <form id="compare-form" method="POST" class="row">
-                {% csrf_token %}
-                <div class="col-md-6">
-                    <h3>Sanoq sistema</h3>
-                    <div class="mb-3">
-                        {{ form.son.label_tag }} {{ form.son }}
-                    </div>
-                    <div class="mb-3">
-                        {{ form.kiritilgan_son.label_tag }} {{ form.kiritilgan_son }}
-                    </div>
+                    <a href="{% url 'son_sanoq' %}"
+                        class="group relative px-8 py-4 overflow-hidden rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                        <span class="relative flex items-center gap-3">
+                            <i class="bi bi-arrow-left-circle text-2xl group-hover:-rotate-45 transition-transform duration-300"></i>
+                            <span class="font-semibold">x → 10</span>
+                        </span>
+                    </a>
                 </div>
-                <div class="col-md-12 text-center">
-                    <button type="submit" class="btn btn-primary">O'tkazish</button>
+            </div>
+
+            <form id="compare-form" method="POST" class="space-y-6">
+                {% csrf_token %}
+                <div class="max-w-xl mx-auto">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Sanoq sistema</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label for="id_son" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Kiritmoqchi bo'lgan Sanoq sistemani tanlang:
+                            </label>
+                            <select name="son" id="id_son" class="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white">
+                                <option value="1">2 sanoq sistema</option>
+                                <option value="2">3 sanoq sistema</option>
+                                <option value="3">4 sanoq sistema</option>
+                                <option value="4">5 sanoq sistema</option>
+                                <option value="5">6 sanoq sistema</option>
+                                <option value="6">8 sanoq sistema</option>
+                                <option value="7">10 sanoq sistema</option>
+                                <option value="8">12 sanoq sistema</option>
+                                <option value="9">16 sanoq sistema</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="id_kiritilgan_son" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Qiymatni kiriting:
+                            </label>
+                            <input type="text" 
+                                   name="kiritilgan_son" 
+                                   id="id_kiritilgan_son"
+                                   required
+                                   maxlength="500"
+                                   class="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white">
+                        </div>
+                    </div>
+
+                    <div class="mt-6 text-center">
+                        <button type="submit" 
+                                class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transform hover:-translate-y-1 transition-all duration-200">
+                            O'tkazish
+                        </button>
+                    </div>
                 </div>
             </form>
+
+            <div id="result" class="mt-8 max-w-xl mx-auto"></div>
         </div>
-        <div id="result" class="result-container">
-           
-        </div>
-    </div>
-    <script>
-        $(document).ready(function() {
-            $('#compare-form').on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: window.location.href,
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $('#result').html(`
-                            <div class="row">
-                                <div class="col-5">
-                                    <h3>Natija</h3>
-                                    <p>${response.sanoq_sistema} lik sanoq sistemadan 10 lik sanoq sistemaga o'tkazish ko'rinishi : ${response.son}</p>
-                                </div>
-                            </div>
-                        `);
-                    },
-                    error: function(response) {
-                        alert('An error occurred. Please try again. ');
-                    }
-                });
+    </main>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#compare-form').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: window.location.href,
+                data: $(this).serialize(),
+                success: function(response) {
+                    $('#result').html(`
+                        <div class="bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700 rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-green-900 dark:text-green-100 mb-3">Natija</h3>
+                            <p class="text-green-800 dark:text-green-200">
+                                ${response.sanoq_sistema} lik sanoq sistemadan 10 lik sanoq sistemaga o'tkazish ko'rinishi: 
+                                <span class="font-mono font-bold">${response.son}</span>
+                            </p>
+                        </div>
+                    `);
+                },
+                error: function(response) {
+                    $('#result').html(`
+                        <div class="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 rounded-lg p-6">
+                            <p class="text-red-800 dark:text-red-200">Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.</p>
+                        </div>
+                    `);
+                }
             });
         });
-    </script>
-</body>
-</html>
+    });
+</script>
+
 {% endblock %}

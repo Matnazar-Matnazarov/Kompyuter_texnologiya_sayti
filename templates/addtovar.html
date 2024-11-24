@@ -1,27 +1,170 @@
 {% extends 'base.html' %}
-{%load static%}
-<head>
-    {% block style %}
-    <link rel="stylesheet" href="{% static 'css/addtovar.css'%}">
-{% endblock %}
-</head>
+{% load static %}
+
 {% block content %}
-<body>
-    <div class="container mt-4">
-        <h1>Add New Tovarslar</h1>
-        <div class="row">
-            <div class="col-4">
-            </div>
-            <div class="col-4">
-                <form method="post" enctype="multipart/form-data">
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-slate-900 dark:to-slate-800 py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-gray-100/50 dark:border-slate-700/50 animate-fade-in-up">
+            <h1 class="text-4xl font-extrabold text-center mb-8">
+                <span class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    Yangi Tovar Qo'shish
+                </span>
+            </h1>
+
+            <div class="max-w-lg mx-auto">
+                <form method="post" enctype="multipart/form-data" class="space-y-8">
                     {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit">Add Tovarslar</button>
+                    
+                    <div class="form-group group">
+                        <label for="id_nomi" class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
+                            <i class="bi bi-card-heading text-2xl text-blue-500 group-hover:animate-pulse"></i>
+                            <span class="relative">
+                                Nomi
+                                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-blue-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                            </span>
+                        </label>
+                        <div class="relative">
+                            <input type="text" name="nomi" maxlength="100" required id="id_nomi" 
+                                   class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 dark:border-slate-600 bg-white/70 dark:bg-slate-800/70 
+                                          text-gray-900 dark:text-white focus:ring-4 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 
+                                          focus:border-blue-500 dark:focus:border-blue-400 transition-all duration-300 outline-none
+                                          placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm">
+                        </div>
+                    </div>
+
+                    <div class="form-group group">
+                        <label for="id_izohi" class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
+                            <i class="bi bi-card-text text-2xl text-purple-500 group-hover:animate-pulse"></i>
+                            <span class="relative">
+                                Izohi
+                                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-purple-500 to-purple-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                            </span>
+                        </label>
+                        <div class="relative">
+                            <input type="text" name="izohi" maxlength="500" required id="id_izohi"
+                                   class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 dark:border-slate-600 bg-white/70 dark:bg-slate-800/70 
+                                          text-gray-900 dark:text-white focus:ring-4 focus:ring-purple-500/20 dark:focus:ring-purple-400/20 
+                                          focus:border-purple-500 dark:focus:border-purple-400 transition-all duration-300 outline-none
+                                          placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm">
+                        </div>
+                    </div>
+
+                    <div class="form-group group">
+                        <label for="id_narxi" class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
+                            <i class="bi bi-currency-dollar text-2xl text-green-500 group-hover:animate-pulse"></i>
+                            <span class="relative">
+                                Narxi
+                                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-green-500 to-green-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                            </span>
+                        </label>
+                        <div class="relative">
+                            <input type="number" name="narxi" required id="id_narxi"
+                                   class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 dark:border-slate-600 bg-white/70 dark:bg-slate-800/70 
+                                          text-gray-900 dark:text-white focus:ring-4 focus:ring-green-500/20 dark:focus:ring-green-400/20 
+                                          focus:border-green-500 dark:focus:border-green-400 transition-all duration-300 outline-none
+                                          placeholder-gray-400 dark:placeholder-gray-500 backdrop-blur-sm">
+                        </div>
+                    </div>
+
+                    <div class="form-group group">
+                        <label for="id_rasmi" class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
+                            <i class="bi bi-image text-2xl text-pink-500 group-hover:animate-pulse"></i>
+                            <span class="relative">
+                                Rasmi
+                                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-pink-500 to-pink-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                            </span>
+                        </label>
+                        <div class="relative">
+                            <input type="file" name="rasmi" accept="image/*" required id="id_rasmi"
+                                   class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 dark:border-slate-600 bg-white/70 dark:bg-slate-800/70 
+                                          text-gray-900 dark:text-white focus:ring-4 focus:ring-pink-500/20 dark:focus:ring-pink-400/20 
+                                          focus:border-pink-500 dark:focus:border-pink-400 transition-all duration-300 outline-none
+                                          file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0
+                                          file:text-sm file:font-semibold file:bg-pink-50 file:text-pink-700
+                                          hover:file:bg-pink-100 dark:file:bg-pink-900 dark:file:text-pink-300">
+                        </div>
+                    </div>
+
+                    <div class="form-group group">
+                        <label for="id_turi" class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">
+                            <i class="bi bi-tag text-2xl text-orange-500 group-hover:animate-pulse"></i>
+                            <span class="relative">
+                                Turi
+                                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-orange-500 to-orange-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                            </span>
+                        </label>
+                        <div class="relative">
+                            <select name="turi" required id="id_turi"
+                                    class="w-full px-5 py-4 rounded-xl border-2 border-gray-200 dark:border-slate-600 bg-white/70 dark:bg-slate-800/70 
+                                           text-gray-900 dark:text-white focus:ring-4 focus:ring-orange-500/20 dark:focus:ring-orange-400/20 
+                                           focus:border-orange-500 dark:focus:border-orange-400 transition-all duration-300 outline-none">
+                                <option value="">Turini tanlang</option>
+                                <option value="1">Protsessor</option>
+                                <option value="2">Protsessor sovutgichi</option>
+                                <option value="3">Video karta</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full group relative">
+                        <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                        <div class="relative px-6 py-4 bg-white dark:bg-slate-800 rounded-xl leading-none flex items-center justify-center space-x-3">
+                            <svg class="w-6 h-6 group-hover:rotate-180 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                            <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-bold text-lg">
+                                Saqlash
+                            </span>
+                        </div>
+                    </button>
                 </form>
             </div>
         </div>
     </div>
-    {% endblock %}
-</body>
-</html>
+</div>
 
+<style>
+    @keyframes tilt {
+        0%, 50%, 100% {
+            transform: rotate(0deg);
+        }
+        25% {
+            transform: rotate(0.5deg);
+        }
+        75% {
+            transform: rotate(-0.5deg);
+        }
+    }
+
+    .animate-tilt {
+        animation: tilt 10s infinite linear;
+    }
+
+    .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .form-group {
+        @apply transform transition-all duration-500;
+    }
+
+    .form-group:hover {
+        @apply scale-[1.02];
+    }
+
+    .form-group input:focus, .form-group select:focus {
+        @apply scale-[1.01] shadow-lg;
+    }
+</style>
+{% endblock %}
