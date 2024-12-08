@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-0d&^+!x_6%ghjw@nsbd6)-ez8%=f(&#o=3dme=_l!15ds#u9_+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*","127.0.0.1", ".vercel.app",]
 
 LOGIN_URL = "/users/login/"
 # Application definition
@@ -37,14 +37,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "crispy_forms",
-    "crispy_bootstrap5",
     "app1",
     "users",
 ]
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
