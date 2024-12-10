@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -77,13 +77,17 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
+DATABASES= {
+    "default":dj_database_url.parse("postgresql://root:1LnplCCFLysNvZrlxVYpiF0D1ZJNRoQB@dpg-ctbvpk52ng1s73brj3l0-a.oregon-postgres.render.com/comparch_50au"),
+}
+# ["default"]= dj_database_url.parse("postgresql://root:h4kIrsx7anaDBl0NiWkcLUQ2O1GLU79G@dpg-ctbvehbtq21c73dh2d90-a.oregon-postgres.render.com/comparch")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
