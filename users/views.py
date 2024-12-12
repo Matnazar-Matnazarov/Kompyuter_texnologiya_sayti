@@ -37,7 +37,7 @@ class LoginView(View):
             login(request, user)
             messages.success(request, "Siz tizimga kirdingiz!")
             return redirect("home")
-        else:
+        else:   
             return redirect("login")
 
 
